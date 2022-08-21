@@ -1,0 +1,43 @@
+C:\Program Files\Docker\Docker> .\DockerCli.exe -SwitchDaemon
+
+docker run -d -p 9200:9200 -p 9300:9300 -it -h elasticsearch --name elasticsearch elasticsearch 
+
+docker build -t my_image .
+
+# BUILD IMAGE 
+docker build --pull --rm -f "Dockerfile" -t tweetapp-service:latest "."
+
+docker ps
+docker ps -a
+docker images -a
+
+docker compose -f service.yml up -d
+
+docker compose down
+docker rm {container id}
+
+docker images
+
+ 172.18.22.75
+ 
+ docker exec -it container-name bash
+ docker exec -it container-name /bin/sh
+ 
+ 
+ apt-get update
+ apt-get install -y vim
+ 
+ 
+ 
+ 
+ # ZOOKEEPER MUTEX LOCK ERROR
+ ➜ docker exec -it zookeeper bash
+root@98747a9eac65:/zookeeper-3.4.14# ./bin/zkCli.sh
+[zk: localhost:2181(CONNECTED) 2] ls /kafka-manager
+[configs, deleteClusters, clusters]
+[zk: localhost:2181(CONNECTED) 3] create /kafka-manager/mutex ""
+Created /kafka-manager/mutex
+[zk: localhost:2181(CONNECTED) 5] create /kafka-manager/mutex/locks ""
+Created /kafka-manager/mutex/locks
+[zk: localhost:2181(CONNECTED) 6] create /kafka-manager/mutex/leases ""
+Created /kafka-manager/mutex/leases
