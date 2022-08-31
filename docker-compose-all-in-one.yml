@@ -118,3 +118,14 @@ volumes:
 
 networks:
   tweet-network:
+  
+  
+  
+
+# tweetapp-service
+# wurstmeister/kafka	IN USE	latest	a692873757c0	3 months ago	468.18 MB	
+# hlebalbau/kafka-manager	IN USE	stable	7e05b466455e	about 2 years ago	427.31 MB	
+# docker.elastic.co/kibana/kibana	IN USE	7.4.0	0328df36f79f	almost 3 years ago	1.1 GB	
+# docker.elastic.co/elasticsearch/elasticsearch	IN USE	7.4.0	dd156dd42341	almost 3 years ago	858.69 MB	
+# wurstmeister/zookeeper	IN USE	latest	3f43f72cb283	over 3 years ago	509.98 MB	
+# docker.elastic.co/logstash/logstash	IN USE	6.4.0	13b7a09abaf8	about 4 years ago	670.07 MB
