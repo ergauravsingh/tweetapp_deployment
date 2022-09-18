@@ -22,8 +22,28 @@ docker images
 
 # DOCKER PUSHING
 docker login
+           # TWEETAPP
 docker tag tweetapp-service:latest ergauravpersonal/tweetapp-service
 docker push ergauravpersonal/tweetapp-service
+           # Kafka
+docker tag wurstmeister/kafka:latest ergauravpersonal/kafka-tweetapp
+docker push ergauravpersonal/kafka-tweetapp
+           # Kafka manager
+docker tag hlebalbau/kafka-manager:stable ergauravpersonal/kafkamanager-tweetapp
+docker push ergauravpersonal/kafkamanager-tweetapp
+           # Kibana
+docker tag docker.elastic.co/kibana/kibana:7.4.0 ergauravpersonal/kibana-tweetapp
+docker push ergauravpersonal/kibana-tweetapp
+           # Elasticsearch
+docker tag docker.elastic.co/elasticsearch/elasticsearch:7.4.0 ergauravpersonal/elasticsearch-tweetapp
+docker push ergauravpersonal/elasticsearch-tweetapp
+           # Zookeeper
+docker tag wurstmeister/zookeeper:latest ergauravpersonal/zookeeper-tweetapp
+docker push ergauravpersonal/zookeeper-tweetapp
+           # Logstash
+docker tag docker.elastic.co/logstash/logstash:6.4.0 ergauravpersonal/logstash-tweetapp
+docker push ergauravpersonal/logstash-tweetapp
+
 
 
 
