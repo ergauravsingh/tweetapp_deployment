@@ -18,6 +18,14 @@ docker rm {container id}
 
 docker images
 
+
+
+# DOCKER PUSHING
+docker login
+docker tag tweetapp-service:latest ergauravpersonal/tweetapp-service
+
+
+
  172.18.22.75
  
  docker exec -it container-name bash
