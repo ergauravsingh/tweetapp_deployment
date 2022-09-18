@@ -1,0 +1,126 @@
+version: "2"
+services:
+  # Spring boot application
+  tweetapp-service:
+    image: ergauravpersonal/tweetapp-service
+    container_name: tweetapp-service
+    ports:
+      - 8085:8085
+    environment:
+      KAFKA_SERVER: kafka:9092
+    depends_on:
+      - kafka
+    restart: always
+    networks:
+      - tweet-network
+
+  # Kafka
+  kafka:
+    image: ergauravpersonal/kafka-tweetapp
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 172.18.22.75
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    restart: always
+    depends_on:
+      - zookeeper
+    networks:
+      - tweet-network
+
+  # Zookeeper
+  zookeeper:
+    image: ergauravpersonal/zookeeper-tweetapp
+    restart: always
+    container_name: zookeeper
+    hostname: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+    networks:
+      - tweet-network
+
+  # Kafka Manager
+  kafka_manager:
+    image: ergauravpersonal/kafkamanager-tweetapp
+    container_name: kakfa-manager
+    restart: always
+    ports:
+      - 9000:9000
+    environment:
+      ZK_HOSTS: zookeeper:2181
+      APPLICATION_SECRET: "random-secret"
+    command: -Dpidfile.path=/dev/null
+    depends_on:
+      - zookeeper
+    networks:
+      - tweet-network
+
+  # Elasticsearch
+  elasticsearch:
+    image: ergauravpersonal/elasticsearch-tweetapp
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - tweet-network
+
+  # Logstash
+  logstash:
+    image: ergauravpersonal/logstash-tweetapp
+    container_name: logstash
+    # It Links elasticsearch container & kafkaserver container  & logstash container to communicate
+    links:
+      - elasticsearch:elasticsearch
+      - kafka:kafka
+    networks:
+      - tweet-network
+    # You can control the order of service startup and shutdown with the depends_on option.
+    depends_on: ["elasticsearch", "kafka"]
+    # Mount host volumes into docker containers to supply logstash.config file
+    volumes:
+      - "//C/Users/cogjava2145/Desktop/TweetApp/logstash/config:/usr/share/logstash/pipeline/"
+
+  # Kibana
+  kibana:
+    container_name: kibana
+    image: ergauravpersonal/kibana-tweetapp
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200 # address of elasticsearch docker container which kibana will connect
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      - tweet-network
+
+volumes:
+  elasticsearch-data:
+
+networks:
+  tweet-network:
+# tweetapp-service
+# wurstmeister/kafka	IN USE	latest	a692873757c0	3 months ago	468.18 MB
+# hlebalbau/kafka-manager	IN USE	stable	7e05b466455e	about 2 years ago	427.31 MB
+# docker.elastic.co/kibana/kibana	IN USE	7.4.0	0328df36f79f	almost 3 years ago	1.1 GB
+# docker.elastic.co/elasticsearch/elasticsearch	IN USE	7.4.0	dd156dd42341	almost 3 years ago	858.69 MB
+# wurstmeister/zookeeper	IN USE	latest	3f43f72cb283	over 3 years ago	509.98 MB
+# docker.elastic.co/logstash/logstash	IN USE	6.4.0	13b7a09abaf8	about 4 years ago	670.07 MB
