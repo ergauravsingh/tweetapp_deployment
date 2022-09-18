@@ -23,6 +23,7 @@ docker images
 # DOCKER PUSHING
 docker login
 docker tag tweetapp-service:latest ergauravpersonal/tweetapp-service
+docker push ergauravpersonal/tweetapp-service
 
 
 
