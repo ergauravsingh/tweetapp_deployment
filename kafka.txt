@@ -9,25 +9,26 @@ Step 3 : Install Kafka
    wget https://downloads.apache.org/kafka/3.2.3/kafka_2.12-3.2.3.tgz
    tar -zxvf kafka_2.12-3.2.3.tgz
    
-Step 4 : Run the Zookeeper    
-   ./bin/zookeeper-server-start.sh ../config/zookeeper.properties &
+Step 4 : Run the Zookeeper - from bin folder in /home/ec2-user/kafka_2.12-3.2.3
+   ./zookeeper-server-start.sh ../config/zookeeper.properties &
 
 Step 6 : Run Kafka server    
-   ./bin/kafka-server-start.sh ../config/server.properties &
+   ./kafka-server-start.sh ../config/server.properties &
+
    if you receive error that your memory is full. change the below.
-   vi /home/ec2-user/kafka_2.12-3.2.3/bin/kafka-server-start.sh
+   vi ./kafka-server-start.sh
    change 
    export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G" to
    export KAFKA_HEAP_OPTS="-Xmx256M -Xms256M" 
 
 
 Step 8 : Create topic and Check if you are able to run produce and consume in ec2 using console consumer and producer
-   sh /home/ec2-user/kafka_2.12-3.2.3/bin/kafka-topics.sh --bootstrap-server  localhost:9092 --create --topic TweetApp --partitions 1 --replication-factor 1
-   sh /home/ec2-user/kafka_2.12-3.2.3/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list 
-   sh /home/ec2-user/kafka_2.12-3.2.3/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic HelloCloudclass
-   sh /home/ec2-user/kafka_2.12-3.2.3/bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic HelloCloudclass
-   sh /home/ec2-user/kafka_2.12-3.2.3/bin/kafka-topics.sh --bootstrap-server  localhost:9092 --create --topic hellotamilboomi --partitions 1 --replication-factor 1   
-   sh /home/ec2-user/kafka_2.12-3.2.3/bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic hellotamilboomi
+   ./kafka-topics.sh --bootstrap-server  localhost:9092 --create --topic TweetApp --partitions 1 --replication-factor 1
+   ./kafka-topics.sh --bootstrap-server localhost:9092 --list 
+   ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic HelloCloudclass
+   ./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic HelloCloudclass
+   ./kafka-topics.sh --bootstrap-server  localhost:9092 --create --topic hellotamilboomi --partitions 1 --replication-factor 1   
+   ./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic hellotamilboomi
 Step 8 : Make your kafka visible to outside network.
    Enable Outbound & outbound rule for kafka port in Secutiry Group.
    TCP 9092
