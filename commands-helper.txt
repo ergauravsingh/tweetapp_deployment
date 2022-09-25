@@ -73,5 +73,13 @@ Created /kafka-manager/mutex/leases
 
 
 
-remove directory with subdirectories 
+remove directory with subdirectories:
 rm -rf <directory_name>
+docker system prune -a
+
+terminate process:
+ps -ef
+sudo kill -9 <PID>
+
+https://cloudaffaire.com/how-to-install-git-in-aws-ec2-instance/
+https://gist.github.com/npearce/6f3c7826c7499587f00957fee62f8ee9
