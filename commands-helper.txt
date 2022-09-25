@@ -70,3 +70,8 @@ Created /kafka-manager/mutex
 Created /kafka-manager/mutex/locks
 [zk: localhost:2181(CONNECTED) 6] create /kafka-manager/mutex/leases ""
 Created /kafka-manager/mutex/leases
+
+
+
+remove directory with subdirectories 
+rm -rf <directory_name>
