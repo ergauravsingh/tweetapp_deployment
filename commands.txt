@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+	  
+	  
+	  
+	  
+	  
+	  
+my docker image version
+
+zookeeper:3.4.14
+wurstmeister/kafka:2.12-2.4.1
+kafkamanager/kafka-manager:3.0.0.4
+this worked for me
+
+➜ docker exec -it zookeeper bash
+root@98747a9eac65:/zookeeper-3.4.14# ./bin/zkCli.sh
+[zk: localhost:2181(CONNECTED) 2] ls /kafka-manager
+[configs, deleteClusters, clusters]
+[zk: localhost:2181(CONNECTED) 3] create /kafka-manager/mutex ""
+Created /kafka-manager/mutex
+[zk: localhost:2181(CONNECTED) 5] create /kafka-manager/mutex/locks ""
+Created /kafka-manager/mutex/locks
+[zk: localhost:2181(CONNECTED) 6] create /kafka-manager/mutex/leases ""
+Created /kafka-manager/mutex/leases
+
+
+
+
+docker run -d -p 5000:5000 -it -h logstash --name logstash logstash 
+
+
+
+
+input {
+    kafka {
+        bootstrap_servers => "http://kafka:9092"
+        topics => ["TweetApp"]
+    }
+}
+
+output {
+    elasticsearch {
+        hosts => ["http://elasticsearch:9200"]
+        index => "TweetApp"
+    }
+}
+
+
+__________________________________________________________________________________________________________
+
+
+
+
+db.collection.remove({key:value})
+db.collection.deleteOne({key:value})
+db.collection.deleteMany({key:value})
+
+
+13369
+
+
+aws configure
+aws s3 ls
+
+
+docker run -d -p 2717:27017 --name mymongo mongo:latest
+
+
+docker tag tweetapp-service public.ecr.aws/l7j0c4z3/tweetapp-service-mongo:latest
+docker push public.ecr.aws/l7j0c4z3/tweetapp-service-mongo:latest
+
+
+____________________________________________________________________________________________________________________________
+
+
